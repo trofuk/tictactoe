@@ -57,12 +57,19 @@ class GameController extends AbstractRestfulJsonController
 
     public function update($uuid, $data)
     {   // Action used for PUT requests
-
+        $game = new Game();
+        $game->uuid = $data['uuid'];
+        $game->board = $data['board'];
+        $game->status = $data['status'];
         $board = $data['board'];
         $status = $this->checkGameStatus($board);
-
-
-        return new JsonModel(array('uuid' => $uuid, 'status' => $status ));
+        if ($status == 'RUNNING') {
+            $game->board =  $this->nextMove($board);
+           $status = $this->checkGameStatus($board);
+        }
+        $game->status = $status;
+        $this->getGameTable()->saveGame($game);
+        return new JsonModel(array('game' => $game ));
 
 
 
@@ -125,4 +132,13 @@ class GameController extends AbstractRestfulJsonController
 
         return $status;
     }
+
+    public function nextMove($board){
+        $pos = strpos($board, '-');
+        if ($pos !== false) {
+            $board = substr_replace($board, '0', $pos, strlen('-'));
+        }
+        return $board;
+    }
+
 }

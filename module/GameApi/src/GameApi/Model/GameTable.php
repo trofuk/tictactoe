@@ -38,9 +38,15 @@ class GameTable
         );
 
         $uuid = $game->uuid;
-        $result = $this->tableGateway->insert($data);
+        $rowset = $this->tableGateway->select(array('uuid' => $uuid));
+        $row = $rowset->current();
+        if (!$row) {
+            $result = $this->tableGateway->insert($data);
+        } else {
+            $result = $this->tableGateway->update($data, array('uuid' => $uuid));
+        }
         if (!$result) {
-            throw new \Exception('Game with uuid already exist');
+            throw new \Exception('Bad request');
         }
 
     }
