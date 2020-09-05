@@ -1,0 +1,22 @@
+# Zend #
+#####################
+nbproject
+._*
+.~lock.*
+.buildpath
+.idea
+.project
+.settings
+INSTALL.txt
+LICENSE.txt
+README.md
+
+# Composer #
+############
+composer.lock
+composer.phar
+vendor
+
+# OS #
+######
+.DS_Store
