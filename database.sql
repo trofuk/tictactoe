@@ -5,6 +5,8 @@
    PRIMARY KEY (uuid)
  );
  INSERT INTO game (uuid, board, status)
-     VALUES  ('3fa85f64-5717-4562-b3fc-2c963f66afa6',  'XO--X--OX', 'RUNNING');
+     VALUES  ('5f538b8cb5ce8',  'X0-X----X', 'RUNNING');
  INSERT INTO game (uuid, board, status)
-     VALUES  ('3fa85f64-5717-4562-b3fc-2c963f77afa6',  '---------', 'DRAW');
+     VALUES  ('5f53ba8b53346',  '---------', 'RUNNING');
+ INSERT INTO game (uuid, board, status)
+     VALUES  ('5f5495b47ce80',  'X0X0XX0X0', 'DRAW');
