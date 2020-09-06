@@ -4,7 +4,7 @@ namespace GameApi\Controller;
 use GameApi\Controller\AbstractRestfulController;
 use GameApi\Model\Game;
 use Zend\View\Model\JsonModel;
-
+use Zend\Json\Json;
 
 
 
@@ -39,33 +39,37 @@ class GameController extends AbstractRestfulJsonController
 
     public function get($uuid)
     {   // Action used for GET requests with resource Id
-        return new JsonModel(array("data" => $this->getGameTable()->getGame($uuid)));
+        return new JsonModel(array("game" => $this->getGameTable()->getGame($uuid)));
     }
 
     public function create($data)
     {   // Action used for POST requests
+        $body = $this->request->getContent();
+        $data = Json::decode($body);
         $game = new Game();
         $game->uuid = uniqid();
-        $game->board = '---------';
+        $board = $data->board;
+        $game->board =  $this->nextMove($board);
         $game->status = 'RUNNING';
 
         $this->getGameTable()->saveGame($game);
 
-        $currentUrl = $this->getRequest()->getUriString();
-        return new JsonModel(array('url' => $currentUrl . '/' . $game->uuid ));
+        return new JsonModel(array('game' => $game ));
     }
 
     public function update($uuid, $data)
     {   // Action used for PUT requests
+        $body = $this->request->getContent();
+        $data = Json::decode($body);
         $game = new Game();
-        $game->uuid = $data['uuid'];
-        $game->board = $data['board'];
-        $game->status = $data['status'];
-        $board = $data['board'];
+        $game->uuid = $data->uuid;
+        $game->board = $data->board;
+        $game->status = $data->status;
+        $board = $data->board;
         $status = $this->checkGameStatus($board);
         if ($status == 'RUNNING') {
             $game->board =  $this->nextMove($board);
-           $status = $this->checkGameStatus($board);
+            $status = $this->checkGameStatus($game->board);
         }
         $game->status = $status;
         $this->getGameTable()->saveGame($game);

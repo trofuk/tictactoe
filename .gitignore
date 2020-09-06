@@ -9,7 +9,7 @@ nbproject
 .settings
 INSTALL.txt
 LICENSE.txt
-README.md
+
 
 # Composer #
 ############
@@ -20,3 +20,7 @@ vendor
 # OS #
 ######
 .DS_Store
+
+# ReactJS #
+############
+frontend/node_modules

@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "uuid": "5f538b8cb5ce8",
+      "board": "X0-X----X",
+      "status": "RUNNING"
+    },
+    {
+      "uuid": "5f53ba8b53346",
+      "board": "---------",
+      "status": "RUNNING"
+    },
+    {
+      "uuid": "5f5495b47ce80",
+      "board": "X0X0XX0X0",
+      "status": "DRAW"
+    },
+    {
+      "uuid": "5f549936241e7",
+      "board": "---------",
+      "status": "RUNNING"
+    }
+  ]
+}
